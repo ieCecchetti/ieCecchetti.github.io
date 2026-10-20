@@ -614,6 +614,21 @@ section h3.section-subheading {
     margin: 0;
 }
 
+#portfolio .portfolio-item .portfolio-label {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 3;
+    padding: 4px 12px;
+    border-radius: 999px;
+    background: #ffc107;
+    color: #222;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    pointer-events: none;
+}
+
 #portfolio .portfolio-item .portfolio-caption {
     margin: 0 auto;
     padding: 25px;
