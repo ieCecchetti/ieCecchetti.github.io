@@ -404,9 +404,30 @@ section h3.section-subheading {
 /* script.js turns the grid into a physics playground (skipped for prefers-reduced-motion) */
 .languages-container.bouncing {
     position: relative;
-    height: 460px;
     max-width: none;
+    margin-top: 0;
     overflow: hidden;
+}
+
+/* the four skill columns, in a card the icons bounce around */
+.skills-panel {
+    flex-basis: 100%;
+    max-width: 1100px;
+    margin: 0 auto 20px;
+    padding: 36px 24px 12px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+}
+
+.bouncing .skills-panel {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 1;
+    width: calc(100% - 40px);
+    margin: 0;
+    transform: translate(-50%, -50%);
 }
 
 .floating-img {
@@ -424,6 +445,7 @@ section h3.section-subheading {
 
 .bouncing .floating-img {
     position: absolute;
+    z-index: 2;
     cursor: grab;
     touch-action: none;
     user-select: none;

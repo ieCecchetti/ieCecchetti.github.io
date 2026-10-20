@@ -24,38 +24,6 @@ $(document).ready(function () {
     $('.navbar-toggler:visible').click();
   });
 
-  $(document).ready(function () {
-    // Function to activate the correct panel and tab based on the hash
-    function activatePanelFromHash() {
-      let hash = window.location.hash; // Get the hash from the URL
-
-      // Reset both panels and tabs
-      $('.tab-pane').removeClass('active'); // Deactivate all panels
-      $('.tab-link').removeClass('active-tab'); // Deactivate all tab links
-
-      // Check the hash and activate the corresponding tab and panel
-      if (hash === '#privacy') {
-        $('#privacy-panel').addClass('active'); // Activate privacy panel
-        $('#privacy-link').addClass('active-tab'); // Highlight privacy tab
-      } else if (hash === '#docs' || hash === '') {
-        $('#docs-panel').addClass('active'); // Activate docs panel
-        $('#docs-link').addClass('active-tab'); // Highlight docs tab
-      }
-    }
-
-    // Run the function on page load
-    activatePanelFromHash();
-
-    // Update the panel dynamically when the hash changes
-    $(window).on('hashchange', activatePanelFromHash);
-
-    // Add click listeners to tab links for switching without hash change
-    $('.tab-link').click(function () {
-      let targetHash =
-        $(this).attr('id') === 'privacy-link' ? '#privacy' : '#docs';
-      window.location.hash = targetHash; // Update the URL hash
-    });
-  });
 });
 
 // Tech icons bounce around and collide with each other; hovering one freezes it
@@ -63,14 +31,29 @@ $(function () {
   const box = document.getElementById('tech-playground');
   if (!box || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   box.classList.add('bouncing');
+  const panel = box.querySelector('.skills-panel');
+  // leave room for the icons above and below the card, whatever height its columns wrap to
+  const fitHeight = () => (box.style.height = panel.offsetHeight + 360 + 'px');
+  fitHeight();
+  window.addEventListener('resize', fitHeight);
+
+  const wall = () => { // measured on screen because the card is centred with a CSS transform
+    const p = panel.getBoundingClientRect(), o = box.getBoundingClientRect();
+    return { l: p.left - o.left, t: p.top - o.top, r: p.right - o.left, b: p.bottom - o.top };
+  };
+  const insideWall = (x, y, r, w) => x > w.l - r && x < w.r + r && y > w.t - r && y < w.b + r;
 
   const balls = [...box.querySelectorAll('.floating-img')].map((el) => {
     const r = el.offsetWidth / 2;
     const angle = Math.random() * Math.PI * 2;
+    const w = wall();
+    let x, y, tries = 0;
+    do {
+      x = r + Math.random() * (box.clientWidth - 2 * r);
+      y = r + Math.random() * (box.clientHeight - 2 * r);
+    } while (insideWall(x, y, r, w) && ++tries < 100);
     return {
-      el, r,
-      x: r + Math.random() * (box.clientWidth - 2 * r),
-      y: r + Math.random() * (box.clientHeight - 2 * r),
+      el, r, x, y,
       vx: Math.cos(angle) * 0.9, vy: Math.sin(angle) * 0.9,
       rot: 0, spin: (Math.random() - 0.5) * 0.6,
       hover: false,
@@ -117,8 +100,28 @@ $(function () {
     });
   });
 
+  // circle vs rectangle: push the icon out of the card and reflect its velocity on the side it hit
+  function bounceOffWall(b, R) {
+    const cx = Math.min(Math.max(b.x, R.l), R.r), cy = Math.min(Math.max(b.y, R.t), R.b);
+    let nx = b.x - cx, ny = b.y - cy;
+    const d = Math.hypot(nx, ny);
+    if (d >= b.r) return;
+    if (d > 0) {
+      nx /= d; ny /= d;
+      b.x = cx + nx * b.r; b.y = cy + ny * b.r;
+    } else { // centre is inside the card (e.g. dropped there): leave through the nearest edge
+      const gaps = [b.x - R.l, R.r - b.x, b.y - R.t, R.b - b.y];
+      [nx, ny] = [[-1, 0], [1, 0], [0, -1], [0, 1]][gaps.indexOf(Math.min(...gaps))];
+      if (nx) b.x = (nx < 0 ? R.l : R.r) + nx * b.r;
+      else b.y = (ny < 0 ? R.t : R.b) + ny * b.r;
+    }
+    const p = b.vx * nx + b.vy * ny;
+    if (p < 0) { b.vx -= 2 * p * nx; b.vy -= 2 * p * ny; }
+  }
+
   function step() {
     const w = box.clientWidth, h = box.clientHeight;
+    const rect = wall();
     for (const b of balls) {
       if (b.hover) continue; // hovered icon stays still so it can be clicked
       const speed = Math.hypot(b.vx, b.vy);
@@ -130,6 +133,7 @@ $(function () {
       if (b.x > w - b.r) { b.x = w - b.r; b.vx = -Math.abs(b.vx); }
       if (b.y < b.r) { b.y = b.r; b.vy = Math.abs(b.vy); }
       if (b.y > h - b.r) { b.y = h - b.r; b.vy = -Math.abs(b.vy); }
+      bounceOffWall(b, rect);
     }
     // equal-mass elastic collisions: swap velocity along the contact normal
     for (let i = 0; i < balls.length; i++) {
@@ -238,3 +242,4 @@ $(function () {
     })
     .catch(() => {}); // rate limited or offline: keep the static cards already in the page
 });
+
