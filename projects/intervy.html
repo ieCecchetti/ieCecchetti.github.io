@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Intervy: an AI-powered technical interview coach built as a set of Claude Code skills.">
+        <meta name="author" content="Enrico Cecchetti">
+        <title>Intervy | Enrico Cecchetti</title>
+        <link rel="icon" href="/favicon_io/favicon-16x16.png" type="image/x-icon">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="../static/project.css">
+    </head>
+
+    <body>
+        <nav class="project-nav">
+            <div class="container">
+                <a href="../index.html#portfolio"><i class="fas fa-arrow-left"></i> Back to portfolio</a>
+            </div>
+        </nav>
+
+        <header class="project-hero" style="background: linear-gradient(135deg, #1b1f3b, #3b2a6b 60%, #6b3fa0);">
+            <div class="container">
+                <h1>Intervy</h1>
+                <p class="lead">An AI-powered technical interview coach for Claude Code: assignment review, live coding, algorithm challenges and a full round-table panel simulation.</p>
+                <a class="btn btn-light" href="https://github.com/ieCecchetti/intervy" target="_blank" rel="noopener"><i class="fab fa-github"></i> View on GitHub</a>
+            </div>
+        </header>
+
+        <section class="project-section">
+            <div class="container">
+                <h2>Why I built it</h2>
+                <p>
+                    Preparing for technical interviews usually means jumping between LeetCode, mock-interview sites and notes.
+                    Intervy brings all of that into the terminal: you type <code>interview</code> in a Claude Code session and it runs a realistic,
+                    scored interview, calibrated to your seniority, on your own code or on a freshly generated scenario.
+                </p>
+                <div class="project-tags mt-4">
+                    <span>Claude Code skills</span><span>Prompt engineering</span><span>Python</span><span>Java Spring Boot</span><span>MIT licence</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="project-section bg-white">
+            <div class="container">
+                <h2>Four interview modes</h2>
+                <div class="row">
+                    <div class="col-md-6 col-lg-3 mb-4">
+                        <div class="project-card">
+                            <i class="fas fa-code-branch"></i>
+                            <h4>Assignment Review</h4>
+                            <p class="text-muted">Paste a project or a git URL. Intervy questions you on architecture, failure modes, security, testing and production readiness. Scored 0–100.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3 mb-4">
+                        <div class="project-card">
+                            <i class="fas fa-stopwatch"></i>
+                            <h4>From Scratch</h4>
+                            <p class="text-muted">Build a back-end API under time pressure, FAANG-style, in Python (FastAPI/Flask) or Java Spring Boot, on a randomised business scenario.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3 mb-4">
+                        <div class="project-card">
+                            <i class="fas fa-puzzle-piece"></i>
+                            <h4>Coding Challenge</h4>
+                            <p class="text-muted">LeetCode-style algorithm practice with hints on demand and edge-case testing. Scored 1–10 with complexity and code-comment analysis.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3 mb-4">
+                        <div class="project-card">
+                            <i class="fas fa-users"></i>
+                            <h4>Round-Table</h4>
+                            <p class="text-muted">Face a panel of 7: handler, HR, manager, tech lead, architect, senior dev and CTO, each with a random personality that changes how they question and score you.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="project-section">
+            <div class="container">
+                <h2>How it works</h2>
+                <p>Intervy is a set of five cooperating Claude Code skills:</p>
+                <ol class="project-steps">
+                    <li><strong>intervy</strong>: the entry point. It picks up "interview" or "practice" and walks you through choosing a mode.</li>
+                    <li><strong>intervy-scenario</strong>: generates a randomised company and business scenario, shared by the From Scratch and Round-Table modes.</li>
+                    <li><strong>intervy-questioner</strong>: fires language-specific deep-dive theory questions between rounds.</li>
+                    <li><strong>intervy-technical</strong>: runs the 7-panelist round-table, with the personality system and dynamic follow-ups.</li>
+                    <li><strong>intervy-score</strong>: evaluates each round and merges the panel into a final verdict.</li>
+                </ol>
+            </div>
+        </section>
+
+        <section class="project-section bg-white">
+            <div class="container">
+                <h2>Try it</h2>
+                <p>You need <a href="https://claude.ai/code" target="_blank" rel="noopener">Claude Code</a> installed. Then install the skills globally:</p>
+<pre class="project-code"><code>git clone https://github.com/ieCecchetti/intervy /tmp/intervy-install
+cp -r /tmp/intervy-install/.claude/skills/* ~/.claude/skills/
+rm -rf /tmp/intervy-install</code></pre>
+                <p>Open Claude Code in any project and type <code>interview</code>.</p>
+            </div>
+        </section>
+
+        <footer class="project-footer">
+            &copy; 2026 Enrico Cecchetti · <a href="../index.html">Back to the portfolio</a>
+        </footer>
+    </body>
+</html>
