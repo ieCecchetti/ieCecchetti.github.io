@@ -402,10 +402,16 @@ section h3.section-subheading {
 }
 
 /* script.js turns the grid into a physics playground (skipped for prefers-reduced-motion) */
+/* the playground fills the whole Skillset section, so icons bounce right up to the next section */
+section#services {
+    padding: 0;
+}
+
 .languages-container.bouncing {
     position: relative;
     max-width: none;
-    margin-top: 0;
+    margin: 0;
+    padding: 0;
     overflow: hidden;
 }
 
