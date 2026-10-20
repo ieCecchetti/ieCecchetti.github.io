@@ -457,35 +457,92 @@ section h3.section-subheading {
 
 /* ================== OPEN SOURCE SECTION ===================================*/
 
-.oss-card {
-    display: block;
+.oss-project {
     height: 100%;
-    padding: 24px;
+    padding: 28px;
     border-radius: 12px;
     background: #fff;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    color: inherit;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.oss-card:hover,
-.oss-card:focus {
-    color: inherit;
-    text-decoration: none;
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-}
-
-.oss-card-top {
+.oss-project-head {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-bottom: 12px;
-    font-size: 14px;
+    gap: 16px;
+    margin-bottom: 16px;
 }
 
-.oss-repo {
+.oss-project-head h4 {
+    margin: 0 0 4px;
+}
+
+.oss-project-head h4 a {
+    color: inherit;
+}
+
+.oss-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+}
+
+.oss-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.oss-tag {
+    padding: 2px 10px;
+    border-radius: 999px;
+    background: rgba(30, 226, 231, 0.15);
+    color: #0b7a7d;
+    font-size: 13px;
+}
+
+.oss-prs {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid #eee;
+}
+
+.oss-prs a {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+    color: inherit;
+    transition: background-color 0.2s ease;
+}
+
+.oss-prs a:hover,
+.oss-prs a:focus {
+    text-decoration: none;
+    background-color: rgba(30, 226, 231, 0.06);
+}
+
+.oss-state {
+    flex-shrink: 0;
+    align-self: flex-start;
+    margin-top: 3px;
+}
+
+.oss-pr-number {
+    flex-shrink: 0;
+    font-weight: 700;
+}
+
+.oss-pr-title {
     color: #555;
+}
+
+.oss-more {
+    display: inline-block;
+    margin-top: 10px;
+    font-weight: 700;
 }
 
 /* ================== PORTFOLIO SECTION ===================================*/
