@@ -539,10 +539,13 @@ section h3.section-subheading {
     color: #555;
 }
 
-.oss-more {
+.oss-more,
+.oss-more:hover,
+.oss-more:focus {
     display: inline-block;
     margin-top: 10px;
     font-weight: 700;
+    color: #222;
 }
 
 /* ================== PORTFOLIO SECTION ===================================*/
