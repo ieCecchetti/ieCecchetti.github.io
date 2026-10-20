@@ -392,29 +392,59 @@ section h3.section-subheading {
 
 /* Container for all images */
 .languages-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 images per row */
-    grid-gap: 20px; /* Space between the images */
-    justify-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
     margin: 50px auto;
     max-width: 1200px;
     padding: 20px;
 }
 
-/* Individual floating images */
-.floating-img {
+/* script.js turns the grid into a physics playground (skipped for prefers-reduced-motion) */
+.languages-container.bouncing {
     position: relative;
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 460px;
+    max-width: none;
+    overflow: hidden;
 }
 
-/* Hover effects to enlarge images and add depth */
+.floating-img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 84px;
+    height: 84px;
+    padding: 16px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+.bouncing .floating-img {
+    position: absolute;
+    cursor: grab;
+    touch-action: none;
+    user-select: none;
+    top: 0;
+    left: 0;
+    will-change: transform;
+}
+
 .floating-img:hover {
-    transform: scale(1.1);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.35), 0 8px 24px rgba(0, 0, 0, 0.25);
+    z-index: 2;
+}
+
+@media (max-width: 576px) {
+    .floating-img { width: 56px; height: 56px; padding: 10px; }
+}
+
+.floating-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 /* Ensure images fit inside their container */
@@ -424,76 +454,6 @@ section h3.section-subheading {
     border-radius: 50%;
     object-fit: cover;
 }
-
-/* Add animations to each image with random rotation and translations */
-@keyframes float1 {
-    0% { transform: translate(0, 0) rotate(0deg); }
-    25% { transform: translate(25%, -15%) rotate(20deg); }
-    50% { transform: translate(30%, -20%) rotate(-15deg); }
-    75% { transform: translate(20%, -10%) rotate(10deg); }
-}
-
-@keyframes float2 {
-    0% { transform: translate(0, 0) rotate(0deg); }
-    50% { transform: translate(-30%, 20%) rotate(15deg); }
-    75% { transform: translate(-15%, 5%) rotate(-5deg); }
-    100% { transform: translate(0, 0) rotate(0deg); }
-}
-
-@keyframes float3 {
-    0% { transform: translate(0, 0) rotate(0deg); }
-    25% { transform: translate(15%, 5%) rotate(10deg); }
-    75% { transform: translate(10%, 0%) rotate(5deg); }
-    100% { transform: translate(0, 0) rotate(0deg); }
-}
-
-@keyframes float4 {
-    25% { transform: translate(-10%, -5%) rotate(-5deg); }
-    50% { transform: translate(-20%, -10%) rotate(15deg); }
-    75% { transform: translate(-5%, -15%) rotate(-15deg); }
-    100% { transform: translate(0, 0) rotate(0deg); }
-}
-
-@keyframes float5 {
-    0% { transform: translate(0, 0) rotate(0deg); }
-    25% { transform: translate(10%, -10%) rotate(-10deg); }
-    50% { transform: translate(15%, -15%) rotate(20deg); }
-    75% { transform: translate(5%, -5%) rotate(-5deg); }
-    100% { transform: translate(0, 0) rotate(0deg); }
-}
-
-@keyframes float6 {
-    0% { transform: translate(0, 0) rotate(0deg); }
-    50% { transform: translate(-15%, 10%) rotate(-10deg); }
-    75% { transform: translate(-5%, 5%) rotate(15deg); }
-    100% { transform: translate(0, 0) rotate(0deg); }
-}
-
-@keyframes float7 {
-    0% { transform: translate(0, 0) rotate(0deg); }
-    25% { transform: translate(5%, -5%) rotate(-5deg); }
-    50% { transform: translate(10%, -10%) rotate(10deg); }
-    100% { transform: translate(0, 0) rotate(0deg); }
-}
-
-@keyframes float8 {
-    0% { transform: translate(0, 0) rotate(0deg); }
-    25% { transform: translate(-5%, 15%) rotate(15deg); }
-    50% { transform: translate(-10%, 15%) rotate(-20deg); }
-    75% { transform: translate(-15%, 5%) rotate(10deg); }
-    100% { transform: translate(0, 0) rotate(0deg); }
-}
-
-
-/* Apply animations to each floating image */
-.image1 { animation: float1 2s infinite ease-in-out; }
-.image2 { animation: float2 6s infinite ease-in-out; }
-.image3 { animation: float3 5s infinite ease-in-out; }
-.image4 { animation: float4 2s infinite ease-in-out; }
-.image5 { animation: float5 5s infinite ease-in-out; }
-.image6 { animation: float6 13s infinite ease-in-out; }
-.image7 { animation: float7 4s infinite ease-in-out; }
-.image8 { animation: float8 8s infinite ease-in-out; }
 
 /* ================== PORTFOLIO SECTION ===================================*/
 
@@ -938,31 +898,24 @@ ul.social-buttons {
 }
 
 ul.social-buttons li a {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 50px; 
     height: 50px; 
     border-radius: 50%; 
     font-size: 24px;
-    line-height: 50px; 
     color: #fff;
     background-color: #222;
     -webkit-transition: all .3s;
     -moz-transition: all .3s;
     transition: all .3s;
-    text-align: center; 
-    padding-top: 12px;
 }
 
 ul.social-buttons li a:hover,
 ul.social-buttons li a:focus,
 ul.social-buttons li a:active {
     background-color: #1ee2e7;
-}
-
-/* Ensure that the icons inside are centered */
-ul.social-buttons li a i {
-    display: inline-block;
-    line-height: normal; /* Allow the icons to align properly */
 }
 
 /* Remove any focus outlines */
