@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Anime Up: an Alexa skill that tells you which anime are airing and when the next episode comes out.">
+        <meta name="author" content="Enrico Cecchetti">
+        <title>Anime Up | Enrico Cecchetti</title>
+        <link rel="icon" href="/favicon_io/favicon-16x16.png" type="image/x-icon">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="../static/project.css">
+    </head>
+
+    <body>
+        <nav class="project-nav">
+            <div class="container">
+                <a href="../index.html#portfolio"><i class="fas fa-arrow-left"></i> Back to portfolio</a>
+            </div>
+        </nav>
+
+        <header class="project-hero" style="background: linear-gradient(135deg, #2b1055, #7c2d8f 55%, #ff6a3d);">
+            <div class="container">
+                <span class="project-status"><i class="fas fa-hammer"></i> In progress</span>
+                <h1>Anime Up</h1>
+                <p class="lead">Are you an anime fan, tired of opening app after app to check whether the new episode is out? Just ask Alexa.</p>
+                <a class="btn btn-light" href="https://github.com/ieCecchetti/anime_up_skill" target="_blank" rel="noopener"><i class="fab fa-github"></i> Alexa skill</a>
+                <a class="btn btn-outline-light" href="https://github.com/ieCecchetti/anime_up_updater" target="_blank" rel="noopener"><i class="fab fa-github"></i> Data updater</a>
+            </div>
+        </header>
+
+        <section class="project-section">
+            <div class="container">
+                <h2>What it does</h2>
+                <p>
+                    Anime Up is an Italian-language Alexa skill that gives you live information about the anime currently airing:
+                    what comes out today or on a given day, which episode a series has reached, when the next one is out, the plot,
+                    and even whether it's worth starting.
+                </p>
+                <p class="text-muted">
+                    The skill is under active development and is tested on the Alexa development stage. It isn't published in the Alexa Skills Store yet.
+                </p>
+                <div class="project-tags mt-4">
+                    <span>Python</span><span>Alexa Skills Kit</span><span>AWS Lambda</span><span>AniList GraphQL API</span><span>MongoDB</span><span>Docker</span><span>Poetry</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="project-section bg-white">
+            <div class="container">
+                <h2>What you can ask</h2>
+                <div class="row">
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="project-card">
+                            <i class="fas fa-calendar-day"></i>
+                            <h4>What's out today</h4>
+                            <p class="text-muted">"Che anime ci sono oggi?" ("Which anime are on today?"), or any weekday or date: "Cosa esce di venerdì?"</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="project-card">
+                            <i class="fas fa-forward"></i>
+                            <h4>Latest episode</h4>
+                            <p class="text-muted">"A che episodio siamo arrivati?" ("Which episode are we at?") and "Quando esce?" ("When is it out?").</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="project-card">
+                            <i class="fas fa-book-open"></i>
+                            <h4>Plot &amp; advice</h4>
+                            <p class="text-muted">"Qual è la trama di…?" ("What's the plot of…?") and "Me lo consigli?" ("Would you recommend it?").</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h4 class="mt-4 mb-3">A conversation</h4>
+                <div class="project-card project-chat">
+                    <p><span class="user">You:</span> apri anime up</p>
+                    <p><span class="alexa">Alexa:</span> Ciao, mio piccolo nerd preferito, che vuoi sapere?</p>
+                    <p class="translation">"Hi, my favourite little nerd, what do you want to know?"</p>
+                    <p><span class="user">You:</span> quali anime escono oggi</p>
+                    <p><span class="alexa">Alexa:</span> Oggi, ci sono in programma le uscite di: …</p>
+                    <p class="translation mb-0">"Today, the following releases are scheduled: …"</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="project-section">
+            <div class="container">
+                <h2>How it works</h2>
+                <ol class="project-steps">
+                    <li><strong>Collect</strong>: a Python updater queries the <a href="https://anilist.co/" target="_blank" rel="noopener">AniList</a> GraphQL API for the anime currently airing around the world, caching results locally to avoid being rate limited.</li>
+                    <li><strong>Filter &amp; store</strong>: the list is filtered and normalised, then saved to MongoDB (a Docker Compose setup is included) or to a JSON file.</li>
+                    <li><strong>Answer</strong>: the Alexa skill runs as an Alexa-hosted AWS Lambda function in Python, matches what you ask to one of its intents and answers from the collected data.</li>
+                    <li><strong>Ship</strong>: the skill manifest, interaction model and Lambda are deployed together with the ASK CLI, with separate development and live stages.</li>
+                </ol>
+            </div>
+        </section>
+
+        <footer class="project-footer">
+            &copy; 2026 Enrico Cecchetti · <a href="../index.html">Back to the portfolio</a>
+        </footer>
+    </body>
+</html>
