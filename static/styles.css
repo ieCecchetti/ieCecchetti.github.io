@@ -426,15 +426,17 @@ section#services {
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
 }
 
+/* always leave a lane on each side (wider than an icon) so icons can travel around the card */
 .bouncing .skills-panel {
     position: absolute;
     top: 50%;
     left: 50%;
     z-index: 1;
-    width: calc(100% - 40px);
+    width: calc(100% - 240px);
     margin: 0;
     transform: translate(-50%, -50%);
 }
+
 
 .floating-img {
     display: flex;
@@ -467,6 +469,7 @@ section#services {
 
 @media (max-width: 576px) {
     .floating-img { width: 56px; height: 56px; padding: 10px; }
+    .bouncing .skills-panel { width: calc(100% - 150px); padding: 24px 12px 4px; }
 }
 
 .floating-img img {

@@ -43,21 +43,31 @@ $(function () {
   };
   const insideWall = (x, y, r, w) => x > w.l - r && x < w.r + r && y > w.t - r && y < w.b + r;
 
+  // drop an icon on a random free spot outside the card
+  function place(b) {
+    const w = wall();
+    let tries = 0;
+    do {
+      b.x = b.r + Math.random() * (box.clientWidth - 2 * b.r);
+      b.y = b.r + Math.random() * (box.clientHeight - 2 * b.r);
+    } while (insideWall(b.x, b.y, b.r, w) && ++tries < 100);
+  }
+
   const balls = [...box.querySelectorAll('.floating-img')].map((el) => {
     const r = el.offsetWidth / 2;
     const angle = Math.random() * Math.PI * 2;
-    const w = wall();
-    let x, y, tries = 0;
-    do {
-      x = r + Math.random() * (box.clientWidth - 2 * r);
-      y = r + Math.random() * (box.clientHeight - 2 * r);
-    } while (insideWall(x, y, r, w) && ++tries < 100);
     return {
-      el, r, x, y,
+      el, r, x: 0, y: 0,
       vx: Math.cos(angle) * 0.9, vy: Math.sin(angle) * 0.9,
       rot: 0, spin: (Math.random() - 0.5) * 0.6,
       hover: false,
     };
+  });
+  balls.forEach(place);
+  // when the card reflows (e.g. columns stack on a narrower window), move the icons it now covers
+  window.addEventListener('resize', () => {
+    const w = wall();
+    balls.forEach((b) => insideWall(b.x, b.y, b.r, w) && place(b));
   });
   balls.forEach((b) => {
     b.el.addEventListener('mouseenter', () => (b.hover = true));
