@@ -154,3 +154,87 @@ $(function () {
   }
   requestAnimationFrame(step);
 });
+
+// Open source: show the 2 most recently contributed projects, live from the GitHub API
+$(function () {
+  const box = document.getElementById('oss-projects');
+  if (!box) return;
+  const QUERY = 'author:ieCecchetti type:pr is:public -user:ieCecchetti';
+  const CACHE_KEY = 'oss-projects-v1';
+  const CACHE_MS = 60 * 60 * 1000; // unauthenticated search allows 10 calls/min per IP, so cache for an hour
+  const esc = (v) => String(v).replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
+  const getJSON = (url) => fetch(url).then((r) => (r.ok ? r.json() : Promise.reject(r.status)));
+
+  // "fix(scope): do thing (#123)" -> "Do thing"
+  function cleanTitle(title) {
+    const t = title.replace(/^\w+(\([^)]*\))?!?:\s*/, '').replace(/\s*\(#\d+\)$/, '');
+    return t.charAt(0).toUpperCase() + t.slice(1);
+  }
+
+  async function load() {
+    const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
+    if (cached && Date.now() - cached.at < CACHE_MS) return cached.projects;
+
+    const search = await getJSON(
+      'https://api.github.com/search/issues?sort=created&order=desc&per_page=50&q=' + encodeURIComponent(QUERY)
+    );
+    const byRepo = new Map(); // results are newest first, so Map order = most recent project first
+    for (const pr of search.items) {
+      const repo = pr.repository_url.split('/repos/')[1];
+      if (!byRepo.has(repo)) byRepo.set(repo, []);
+      byRepo.get(repo).push({ number: pr.number, title: cleanTitle(pr.title), url: pr.html_url });
+    }
+    const projects = await Promise.all(
+      [...byRepo].slice(0, 2).map(async ([repo, prs]) => {
+        const info = await getJSON('https://api.github.com/repos/' + repo);
+        return {
+          repo,
+          name: info.name.replace(/[-_]/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()),
+          url: info.html_url,
+          avatar: info.owner.avatar_url,
+          description: (info.description || '').split(/\.\s/)[0].replace(/\.?$/, '.'),
+          language: info.language,
+          prs: prs.slice(0, 3),
+        };
+      })
+    );
+    localStorage.setItem(CACHE_KEY, JSON.stringify({ at: Date.now(), projects }));
+    return projects;
+  }
+
+  function render(p) {
+    const prs = p.prs
+      .map(
+        (pr) => `
+          <li>
+            <a href="${esc(pr.url)}" target="_blank" rel="noopener">
+              <img class="oss-state" src="https://img.shields.io/github/pulls/detail/state/${esc(p.repo)}/${pr.number}?label=&amp;style=flat-square" alt="Status of pull request #${pr.number}">
+              <span class="oss-pr-number">#${pr.number}</span>
+              <span class="oss-pr-title">${esc(pr.title)}</span>
+            </a>
+          </li>`
+      )
+      .join('');
+    return `
+      <div class="col-lg-6 mb-4">
+        <div class="oss-project">
+          <div class="oss-project-head">
+            <img class="oss-avatar" src="${esc(p.avatar)}" alt="${esc(p.repo.split('/')[0])} logo">
+            <div>
+              <h4><a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.name)}</a></h4>
+              <img src="https://img.shields.io/github/stars/${esc(p.repo)}?style=flat-square" alt="GitHub stars of ${esc(p.name)}">
+            </div>
+          </div>
+          <p class="text-muted">${esc(p.description)}</p>
+          ${p.language ? `<div class="oss-tags"><span class="oss-tag">${esc(p.language)}</span></div>` : ''}
+          <ul class="oss-prs">${prs}</ul>
+        </div>
+      </div>`;
+  }
+
+  load()
+    .then((projects) => {
+      if (projects.length) box.innerHTML = projects.map(render).join('');
+    })
+    .catch(() => {}); // rate limited or offline: keep the static cards already in the page
+});
