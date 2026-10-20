@@ -7,6 +7,8 @@ html, body {
     scrollbar-width: none; /* For Firefox */
 }
 
+/* the page scrolls on html (it has overflow: auto), so hide that scrollbar too */
+html::-webkit-scrollbar,
 body::-webkit-scrollbar {
     display: none; /* For Chrome, Safari, and Edge */
 }
