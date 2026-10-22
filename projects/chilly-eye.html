@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Chilly Eye: a native macOS menu bar app for break reminders, built around the 20-20-20 rule.">
+        <meta name="author" content="Enrico Cecchetti">
+        <title>Chilly Eye | Enrico Cecchetti</title>
+        <link rel="icon" href="/favicon_io/favicon-16x16.png" type="image/x-icon">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="../static/project.css">
+    </head>
+
+    <body>
+        <nav class="project-nav">
+            <div class="container">
+                <a href="../index.html#portfolio"><i class="fas fa-arrow-left"></i> Back to portfolio</a>
+            </div>
+        </nav>
+
+        <header class="project-hero" style="background: linear-gradient(135deg, #0f3b44, #127a7f 55%, #1ee2e7);">
+            <div class="container">
+                <img class="project-icon" src="../res/chilly_eye/icon.png" alt="Chilly Eye app icon">
+                <h1>Chilly Eye</h1>
+                <p class="lead">Rest your eyes, fix your posture, drink your water. A native macOS menu bar app for break reminders, built around the 20-20-20 rule.</p>
+                <a class="btn btn-light" href="https://github.com/ieCecchetti/chilly-eye/releases/latest" target="_blank" rel="noopener"><i class="fab fa-apple"></i> Download for macOS</a>
+                <a class="btn btn-outline-light" href="https://github.com/ieCecchetti/chilly-eye" target="_blank" rel="noopener"><i class="fab fa-github"></i> View on GitHub</a>
+                <div class="project-badges">
+                    <img src="https://img.shields.io/github/v/release/ieCecchetti/chilly-eye?label=latest&amp;color=34C759" alt="Latest release">
+                    <img src="https://img.shields.io/badge/macOS-14%2B-000?logo=apple" alt="macOS 14 or later">
+                    <img src="https://img.shields.io/badge/Apple%20Silicon-M1%2B-555" alt="Apple Silicon">
+                    <img src="https://img.shields.io/badge/Swift-SwiftUI-F05138?logo=swift&amp;logoColor=white" alt="Swift and SwiftUI">
+                </div>
+            </div>
+        </header>
+
+        <section class="project-section">
+            <div class="container">
+                <h2>Why I built it</h2>
+                <p>
+                    <strong>The 20-20-20 rule:</strong> every 20 minutes, look at something 20 feet (6 m) away for 20 seconds.
+                    Chilly Eye reminds you, and lets you add as many other timers as you like: posture, water, stretch, pomodoro, countdowns or breaks at fixed clock times.
+                </p>
+                <p class="text-muted">
+                    It started in 2025 as a small Python and Tkinter popup. In 2026 I rewrote it from scratch as a native SwiftUI menu bar app,
+                    with a desktop widget and signed, notarized releases.
+                </p>
+                <div class="project-shot mt-4">
+                    <img src="../res/chilly_eye/overlay.jpg" alt="Full-screen break overlay with a countdown">
+                    <p class="text-muted">The full-screen break overlay, with Done, Skip and Snooze.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="project-section bg-white">
+            <div class="container">
+                <h2>Features</h2>
+                <div class="row">
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="project-card">
+                            <i class="fas fa-layer-group"></i>
+                            <h4>Many timers</h4>
+                            <p class="text-muted">Grouped by category: eyes, posture, water, stretch, pomodoro, countdown, scheduled or your own. Pick one and it fills in sensible defaults.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="project-card">
+                            <i class="fas fa-desktop"></i>
+                            <h4>Your break, your style</h4>
+                            <p class="text-muted">A blurred full-screen overlay on every display, or a small popup. End early with Done, Skip, or Snooze, and make a break strict by turning Done off.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="project-card">
+                            <i class="fas fa-user-clock"></i>
+                            <h4>Smart pausing</h4>
+                            <p class="text-muted">Timers hold while you're idle, locked or asleep, and breaks wait while you're in a call (camera or mic in use).</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="project-card">
+                            <i class="fas fa-calendar-week"></i>
+                            <h4>Active hours</h4>
+                            <p class="text-muted">Run each timer only when you need it, for example Monday to Friday, 9:00 to 18:00.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="project-card">
+                            <i class="fas fa-chart-line"></i>
+                            <h4>Stats &amp; streaks</h4>
+                            <p class="text-muted">Breaks taken, skipped and snoozed per day, and a day streak to keep you honest.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="project-card">
+                            <i class="fas fa-keyboard"></i>
+                            <h4>Pause all</h4>
+                            <p class="text-muted">For 30 minutes, an hour, until tomorrow or until you resume, with the global shortcut ⌃⌥⌘P.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="project-section">
+            <div class="container">
+                <h2>Screenshots</h2>
+                <div class="row">
+                    <div class="col-md-6 mb-4 project-shot">
+                        <img src="../res/chilly_eye/menu.png" alt="Menu bar dropdown with every timer">
+                        <p class="text-muted">Every timer in the menu bar, soonest first.</p>
+                    </div>
+                    <div class="col-md-6 mb-4 project-shot">
+                        <img src="../res/chilly_eye/widget.png" alt="Desktop widget with the next 3 timers">
+                        <p class="text-muted">The next 3 timers as a desktop widget.</p>
+                        <img class="mt-4" src="../res/chilly_eye/popup.jpg" alt="Small popup break">
+                        <p class="text-muted">A small popup instead of the full-screen overlay.</p>
+                    </div>
+                    <div class="col-md-6 mb-4 project-shot">
+                        <img src="../res/chilly_eye/new-timer.png" alt="New timer form">
+                        <p class="text-muted">Pick a category and it fills in the defaults.</p>
+                    </div>
+                    <div class="col-md-6 mb-4 project-shot">
+                        <img src="../res/chilly_eye/guide.jpg" alt="The in-app Guide tab">
+                        <p class="text-muted">A built-in guide explains everything inside the app.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="project-section bg-white">
+            <div class="container">
+                <h2>How it's built</h2>
+                <ol class="project-steps">
+                    <li><strong>ChillyCore</strong>: a Swift package with the models, scheduling, stats and a JSON store, covered by unit tests and shared by the app and the widget.</li>
+                    <li><strong>Menu bar app</strong>: SwiftUI, with the timer engine, the break overlay and popup, idle and call detection, and the global hotkey.</li>
+                    <li><strong>Widget</strong>: a WidgetKit extension that reads the same data through an App Group.</li>
+                    <li><strong>Releases</strong>: pushing a version tag makes GitHub Actions build the app, sign and notarize it with Apple, and attach the DMG to a GitHub release.</li>
+                </ol>
+                <div class="project-tags mt-4">
+                    <span>Swift</span><span>SwiftUI</span><span>WidgetKit</span><span>XcodeGen</span><span>GitHub Actions</span><span>MIT licence</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="project-section">
+            <div class="container">
+                <h2>Get it</h2>
+                <p>You need a Mac with Apple Silicon (M1 or later) and macOS 14 Sonoma or later.</p>
+                <ol class="project-steps">
+                    <li>Download the latest <code>ChillyEye-x.y.z.dmg</code> from <a href="https://github.com/ieCecchetti/chilly-eye/releases/latest" target="_blank" rel="noopener">GitHub Releases</a>.</li>
+                    <li>Open it and drag <strong>Chilly Eye</strong> into Applications. It's signed and notarized, so it opens without warnings.</li>
+                    <li>An eye icon with a countdown appears in the menu bar. Turn on <em>Launch at login</em> in Settings → General.</li>
+                </ol>
+            </div>
+        </section>
+
+        <footer class="project-footer">
+            &copy; 2026 Enrico Cecchetti · <a href="../index.html">Back to the portfolio</a>
+        </footer>
+    </body>
+</html>

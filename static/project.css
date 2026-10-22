@@ -150,3 +150,32 @@ pre.project-code {
     text-align: center;
     color: #777;
 }
+
+.project-icon {
+    width: 112px;
+    height: 112px;
+    margin-bottom: 12px;
+    filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.3));
+}
+
+.project-badges {
+    margin-top: 24px;
+}
+
+.project-badges img {
+    margin: 2px;
+}
+
+.project-shot {
+    text-align: center;
+}
+
+.project-shot img {
+    max-width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+}
+
+.project-shot p {
+    margin-top: 10px;
+}
